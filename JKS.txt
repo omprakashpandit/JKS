@@ -1,0 +1,44 @@
+JKS
+===
+A Java keystore (JKS) file is a secure file format used to hold certificate information for Java applications.
+
+Java SSL certificate
+====================
+Java SSL certificate facilitates a secure connection between a client and a server.this secure connection is done by three things:
+
+1. Authentication: The Java SSL certificate makes sure that the client is in communication with the intended web server. This    is done by the verification of the Java SSL certificate installed on the server.
+2. Data Encryption: The data transmitting between client and server is encrypted, and therefore doesn’t allow any    unauthorized entity to see the original data.
+3. Data Integrity: A Java SSL certificate makes sure that the encrypted data can only be unlocked using the private key of    the SSL certificate, which is stored on the web server. This way, no one else can tamper with the data.
+
+STEPS
+=====
+application.properties
+--------------------------
+server.port=8443
+server.ssl.key-alias=https-example
+server.ssl.key-store-type=JKS
+server.ssl.key-password=password
+server.ssl.key-store=classpath:https-example.jks
+
+cmd->C:\Users\OM PRAKASH>
+keytool -genkey -alias https-example -storetype JKS -keyalg RSA -keysize 2048 -validity 365 -keystore https-example.jks
+OR
+application.properties
+--------------------------
+server.ssl.key-alias=selfsigned
+server.ssl.key-store-type=PKCS12
+server.ssl.key-store=classpath:mykeystore.jks
+server.ssl.key-store-password=pass123
+server.port=8443
+------
+cmd->C:\Users\OM PRAKASH>
+keytool -genkey -alias selfsigned -storetype PKCS12 -keyalg RSA -keysize 2048 -validity 365 -keystore mykeystore.jks
+
+
+Show Details
+============
+keytool -list -keystore https-example.jks
+
+Show More Details
+=================
+keytool -list -v -keystore https-example.jks
